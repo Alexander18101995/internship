@@ -4,13 +4,13 @@ from databases import Database
 import asyncio
 import asyncpg
 
-class User_add(BaseModel):
+class Useradd(BaseModel):
     name: str
 
-class User_delete(BaseModel):
+class Userdelete(BaseModel):
     name: str
 
-class User_update(BaseModel):
+class Userupdate(BaseModel):
     id: int
     name: str
 
@@ -21,7 +21,7 @@ async def root():
     return 'User'
 
 @app.post("/add")
-async def insert_records(parameters: User_add):
+async def insert_records(parameters: Useradd):
     database = Database('postgresql://postgres:9785@localhost:5432/postgres')
     try:
         await database.connect()
@@ -38,8 +38,8 @@ async def insert_records(parameters: User_add):
         print('Connection to Database Failed')
 
 
-@app.post("/delete")
-async def user_delete(parameters: User_delete):
+@app.delete("/delete")
+async def user_delete(parameters: Userdelete):
     database = Database('postgresql://postgres:9785@localhost:5432/postgres')
     try:
         await database.connect()
@@ -54,7 +54,7 @@ async def user_delete(parameters: User_delete):
         print('Connection to Database Failed')
 
 @app.post("/update")
-async def user_update(parameters: User_update):
+async def user_update(parameters: Userupdate):
     database = Database('postgresql://postgres:9785@localhost:5432/postgres')
     try:
         await database.connect()
@@ -68,7 +68,7 @@ async def user_update(parameters: User_update):
     except:
         print('Connection to Database Failed')
 
-@app.post("/select")
+@app.get("/select")
 async def user_select():
     database = Database('postgresql://postgres:9785@localhost:5432/postgres')
     try:
